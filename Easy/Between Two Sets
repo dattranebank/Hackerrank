@@ -1,0 +1,72 @@
+#include <iostream>
+using namespace std;
+
+
+
+long UCLNTwo(int a, int b)
+{
+    if (b==0) return a;
+    return UCLNTwo(b,a%b);
+}
+
+
+long UCLN(int A[],int n)
+{
+    long UCLN=A[0];
+    for (int i=1;i<n;i++)
+    {
+        UCLN=UCLNTwo(UCLN,A[i]);
+    }
+    return UCLN;
+}
+
+
+long BCNNTwo(int a, int b)
+{
+    return (a*b)/UCLNTwo(a,b);
+}
+
+
+long BCNN(int A[], int n)
+{
+    long BCNN=A[0];
+    for (int i=1;i<n;i++)
+    {
+        BCNN=BCNNTwo(BCNN,A[i]);
+    }
+    return BCNN;
+}
+
+
+int main() {
+    int n,m;
+    cin >>n>>m;
+    int A[n];
+    for (int i=0;i<n;i++)
+    {
+        cin >>A[i];
+    }
+    int B[m];
+    for (int i=0;i<m;i++)
+    {
+        cin >>B[i];
+    }
+
+    long A1=UCLN(A,n);
+    long A2=BCNN(A,n);
+    long B1=UCLN(B,m);
+    long B2=BCNN(B,m);
+//   cout <<"UCLN A:"<<A1<<endl;
+//   cout <<"BCNN A:"<<A2<<endl;
+//   cout <<"UCLN B:"<<B1<<endl;
+//   cout <<"BCNN B:"<<B2<<endl;
+    int dem=0;
+    for (int i=A2;i<=B1;i=i+A2)
+    {
+        if (B1%i==0)
+        {
+           dem++;
+        }
+    }
+    cout <<dem;
+}
